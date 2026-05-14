@@ -63,7 +63,7 @@ pipeline {
         stage('Deploy Containers') {
             steps {
                 sh '''
-                cd ~/Life_drop
+                cd /var/lib/jenkins/workspace/Life_drop
 
                 docker-compose pull
                 docker-compose up -d --build
