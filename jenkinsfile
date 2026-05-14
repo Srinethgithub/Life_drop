@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_USERNAME = "YOUR_DOCKERHUB_USERNAME"
+        DOCKERHUB_USERNAME = "srinethdockerhub"
         BACKEND_IMAGE = "${DOCKERHUB_USERNAME}/lifedrop-backend:latest"
         FRONTEND_IMAGE = "${DOCKERHUB_USERNAME}/lifedrop-frontend:latest"
     }
@@ -16,7 +16,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME.git'
+                url: 'https://github.com/Srinethgithub/Life_drop.git'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
         stage('Push Backend Docker Image') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
+                    credentialsId: 'docker-cred',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
@@ -49,7 +49,7 @@ pipeline {
         stage('Push Frontend Docker Image') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
+                    credentialsId: 'docker-cred',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
@@ -63,7 +63,7 @@ pipeline {
         stage('Deploy Containers') {
             steps {
                 sh '''
-                cd ~/Life_drop-Creative-thoughts-project-
+                cd ~/Life_drop
 
                 docker-compose pull
                 docker-compose up -d --build
