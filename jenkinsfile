@@ -67,15 +67,11 @@ pipeline {
 
                 docker-compose down || true
 
-                docker rm -f lifedrop-nginx lifedrop-frontend lifedrop-backend lifedrop-mongo || true
-
                 docker-compose pull
 
                 docker-compose up -d
 
                 docker image prune -f
-
-                sudo systemctl restart nginx
                 '''
             }
         }
